@@ -1,2 +1,0 @@
-SUPABASE_URL=https://doedfunxlfssrbrrahlx.supabase.co
-SUPABASE_ANON_KEY=sb_publishable_mk-SPXA2DEk8P94qiTQgDA_6EBBTO4y
