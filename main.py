@@ -14,14 +14,17 @@ app.add_middleware(
 )
 
 THRESHOLDS = {
-    "CROWD": 300.0,
-    "WASTE": 80.0,
-    "WATER": 85.0,
-    "ENERGY": 400.0,
+    "CROWD": 300.0,   # >= 300 is critical
+    "WASTE": 80.0,    # >= 80% is critical
+    "WATER": 20.0,    # <= 20% (tank low) is critical
+    "ENERGY": 400.0   # >= 400 kWh is critical
 }
 
 def is_metric_critical(event_type: str, predicted_val: float) -> bool:
-    limit = THRESHOLDS.get(event_type.upper(), 100.0)
+    etype = event_type.upper()
+    if etype == "WATER":
+        return bool(predicted_val <= THRESHOLDS["WATER"])
+    limit = THRESHOLDS.get(etype, 100.0)
     return bool(predicted_val >= limit)
 
 class SensorRequest(BaseModel):
