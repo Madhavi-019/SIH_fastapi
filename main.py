@@ -13,12 +13,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Critical thresholds for each metric
 THRESHOLDS = {
-    "CROWD": 300.0,   # Crowd count > 300 triggers critical
-    "WASTE": 80.0,    # Fill percentage > 80% triggers critical
-    "WATER": 85.0,    # Usage / tank level % > 85% triggers critical
-    "ENERGY": 400.0   # kWh / power load > 400 triggers critical
+    "CROWD": 300.0,
+    "WASTE": 80.0,
+    "WATER": 85.0,
+    "ENERGY": 400.0,
 }
 
 def is_metric_critical(event_type: str, predicted_val: float) -> bool:
@@ -66,7 +65,7 @@ def predict_universal(req: SensorRequest):
         "confidence": round(conf, 2),
         "prediction_horizon": horizon,
         "critical": is_metric_critical(etype, val),
-        "generated_at": req.timestamp
+        "generated_at": req.timestamp,
     }
 
 @app.post("/predict/crowd", response_model=SensorResponse)
@@ -77,7 +76,7 @@ def predict_crowd_endpoint(req: SensorRequest):
         "confidence": round(conf, 2),
         "prediction_horizon": horizon,
         "critical": is_metric_critical("CROWD", val),
-        "generated_at": req.timestamp
+        "generated_at": req.timestamp,
     }
 
 @app.post("/predict/waste", response_model=SensorResponse)
@@ -88,7 +87,7 @@ def predict_waste_endpoint(req: SensorRequest):
         "confidence": round(conf, 2),
         "prediction_horizon": horizon,
         "critical": is_metric_critical("WASTE", val),
-        "generated_at": req.timestamp
+        "generated_at": req.timestamp,
     }
 
 @app.post("/predict/water", response_model=SensorResponse)
@@ -99,7 +98,7 @@ def predict_water_endpoint(req: SensorRequest):
         "confidence": round(conf, 2),
         "prediction_horizon": horizon,
         "critical": is_metric_critical("WATER", val),
-        "generated_at": req.timestamp
+        "generated_at": req.timestamp,
     }
 
 @app.post("/predict/energy", response_model=SensorResponse)
@@ -110,5 +109,5 @@ def predict_energy_endpoint(req: SensorRequest):
         "confidence": round(conf, 2),
         "prediction_horizon": horizon,
         "critical": is_metric_critical("ENERGY", val),
-        "generated_at": req.timestamp
+        "generated_at": req.timestamp,
     }
