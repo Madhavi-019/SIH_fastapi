@@ -71,43 +71,19 @@ def predict_universal(req: SensorRequest):
 @app.post("/predict/crowd", response_model=SensorResponse)
 def predict_crowd_endpoint(req: SensorRequest):
     val, horizon, conf = predict_crowd(req.current_value, req.rate)
-    return {
-        "predicted_value": round(val, 2),
-        "confidence": round(conf, 2),
-        "prediction_horizon": horizon,
-        "critical": is_metric_critical("CROWD", val),
-        "generated_at": req.timestamp,
-    }
+    return {"predicted_value": round(val, 2), "confidence": round(conf, 2), "prediction_horizon": horizon, "critical": is_metric_critical("CROWD", val), "generated_at": req.timestamp}
 
 @app.post("/predict/waste", response_model=SensorResponse)
 def predict_waste_endpoint(req: SensorRequest):
     val, horizon, conf = predict_waste(req.current_value, req.rate)
-    return {
-        "predicted_value": round(val, 2),
-        "confidence": round(conf, 2),
-        "prediction_horizon": horizon,
-        "critical": is_metric_critical("WASTE", val),
-        "generated_at": req.timestamp,
-    }
+    return {"predicted_value": round(val, 2), "confidence": round(conf, 2), "prediction_horizon": horizon, "critical": is_metric_critical("WASTE", val), "generated_at": req.timestamp}
 
 @app.post("/predict/water", response_model=SensorResponse)
 def predict_water_endpoint(req: SensorRequest):
     val, horizon, conf = predict_water(req.current_value, req.rate)
-    return {
-        "predicted_value": round(val, 2),
-        "confidence": round(conf, 2),
-        "prediction_horizon": horizon,
-        "critical": is_metric_critical("WATER", val),
-        "generated_at": req.timestamp,
-    }
+    return {"predicted_value": round(val, 2), "confidence": round(conf, 2), "prediction_horizon": horizon, "critical": is_metric_critical("WATER", val), "generated_at": req.timestamp}
 
 @app.post("/predict/energy", response_model=SensorResponse)
 def predict_energy_endpoint(req: SensorRequest):
     val, horizon, conf = predict_energy(req.current_value, req.rate)
-    return {
-        "predicted_value": round(val, 2),
-        "confidence": round(conf, 2),
-        "prediction_horizon": horizon,
-        "critical": is_metric_critical("ENERGY", val),
-        "generated_at": req.timestamp,
-    }
+    return {"predicted_value": round(val, 2), "confidence": round(conf, 2), "prediction_horizon": horizon, "critical": is_metric_critical("ENERGY", val), "generated_at": req.timestamp}
