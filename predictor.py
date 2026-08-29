@@ -80,10 +80,10 @@ def predict_crowd(current_value: float, rate: float):
 
 def predict_waste(current_value: float, rate: float):
     eff_rate, conf = get_live_slope("WASTE", rate)
-    safe_rate = max(0.1, eff_rate)
-    minutes_to_full = max(0.0, (100.0 - current_value) / safe_rate)
-    horizon_sec = int(round(minutes_to_full * 60))
-    return 100.0, horizon_sec, conf
+    horizon_min = 30
+    horizon_sec = horizon_min * 60
+    predicted_val = min(100.0, current_value + (eff_rate * horizon_min))
+    return round(float(predicted_val), 2), horizon_sec, conf
 
 
 def predict_water(current_value: float, rate: float):
